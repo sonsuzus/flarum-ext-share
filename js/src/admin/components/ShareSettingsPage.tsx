@@ -6,10 +6,11 @@ import type ItemList from 'flarum/common/utils/ItemList';
 import PostPreview from './PostPreview';
 
 export default class ShareSettingsPage extends ExtensionPage {
-  sections(): ItemList {
+  sections(): ItemList<any> {
     const old = super.sections();
 
-    const displayType = (this.settings as Record<string, () => unknown>)['davwheat-share.share_button_style']();
+    // Flarum 2.0 standart ayar okuma metodu
+    const displayType = this.setting('davwheat-share.share_button_style')() as 'icon' | 'text' | 'menu';
 
     old.add(
       'notice',
@@ -20,9 +21,11 @@ export default class ShareSettingsPage extends ExtensionPage {
       </div>,
       25
     );
-    old.replace('content', null, 20);
+    
+    // GÜNCELLEME: replace() yerine remove() kullanıyoruz
+    old.remove('content');
     old.add('preview', <PostPreview displayType={displayType} />, 15);
-    old.replace('permissions', null, 10);
+    old.remove('permissions');
 
     return old;
   }
