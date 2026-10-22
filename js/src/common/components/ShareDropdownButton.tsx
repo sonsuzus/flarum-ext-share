@@ -1,7 +1,6 @@
 import app from 'flarum/common/app';
 import Component from 'flarum/common/Component';
 import Button from 'flarum/common/components/Button';
-import extractText from 'flarum/common/utils/extractText'; // EKLENDİ
 import shareUrl from '../helpers/shareUrl';
 
 export interface IShareButtonAttrs {
@@ -13,7 +12,6 @@ export default class ShareDropdownButton extends Component<IShareButtonAttrs> {
   view() {
     return (
       <Button
-        aria-label={extractText(app.translator.trans('davwheat-share.lib.share_a11y_label'))} // GÜNCELLENDİ
         onclick={() => shareUrl(this.attrs.url, this.attrs.discussionTitle)}
         className="Button davwheat-ShareDropdownButton"
         icon="fas fa-share-alt"
